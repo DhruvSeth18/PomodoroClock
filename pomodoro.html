@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro</title>
+    <style>
+        @font-face {
+            font-family: myfont;
+            src: url(./Zallord\ free.ttf);
+        }
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            border-radius: 0;
+            font-family: myfont;
+        }
+        body{
+            width: 100%;
+            height: 100vh;
+            padding-top: 35px;
+            background-color: rgb(0, 0, 75);
+            position: relative;
+        }
+        .down{
+            margin-top: 4rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 40vh;
+        }
+        
+        .feature{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        .options{
+            padding-left: 2vw;
+            padding-right: 1vw;
+            display: flex;
+            justify-content: space-between;
+            display: flex;
+            justify-content: center;
+        }
+        .leftside{
+            display: flex;
+            align-items: center;
+            padding-left: 2vw;
+        }
+        .leftside p{
+            font-size: 2.1rem;
+            font-weight: bold;
+            letter-spacing: 4px;
+        }
+        .rightside{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            gap: 1rem;
+
+        }
+        .rightside a{
+            padding: 0.7rem 1rem;
+            font-size: 1.2rem;
+            background-color: rgba(255, 255, 255, 0.379);
+            color: white;
+            cursor: pointer;
+            letter-spacing: 1.5px;
+            font-family: none;
+            margin-right:1vw;
+        }
+        .rightside select{
+            color: white;
+            cursor: pointer;
+            border: 0;
+            font-weight: 800;
+            width: 120px;
+            height: 2.7rem;
+            letter-spacing: 1.8px;
+            font-size: 1.1rem;
+            background-color: rgba(255, 255, 255, 0.263);
+        }
+        .rightside select option{
+            background-color: rgb(0, 0, 75);
+            position: relative;
+            font-size: 1.5rem;
+            font-family: none;
+            text-align: center;
+        }
+        .sectionA{
+            width: 50%;
+            display: flex;
+            justify-content: space-around;
+        }
+        .sectionB {
+        width: 50%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        }
+
+        .sectionB select {
+            margin-right: 20px; /* Add margin to create a gap */
+        }
+
+        .title{
+            width: 100%;
+            height: 15vh;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        p{
+            color: white;
+            font-size: 6rem;
+            letter-spacing: 4px;
+            font-weight:500;
+            font-weight: bold;
+        }
+        .clock{
+            width: 33%;
+            height: 37vh;
+            outline: 0.25rem solid crimson;
+            outline-offset: -1rem;
+            -webkit-box-shadow: 0px 0px 21px 0px rgba(255,255,255,1);
+            -moz-box-shadow: 0px 0px 21px 0px rgba(255,255,255,1);
+            box-shadow: 0px 0px 21px 0px rgba(255,255,255,1);
+            border-radius: 5%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .clock p{
+            color: white;
+            background-color: ;
+            font-size: 6rem;
+            letter-spacing: 4px;
+            font-weight:500;
+        }
+        #Buttons{
+            width: 100%;
+            height: 7vh;
+            display: flex;
+            margin-top:3rem;
+            justify-content: center;
+            align-items: center;
+        }
+        #Buttons input{
+            width: 10%;
+            height: 3rem;
+            font-size: 1.7rem;
+            font-weight: 600;
+            letter-spacing: 4px;
+            border-radius: 10px;
+            border: 0;
+            outline: 0;
+        }
+        #Buttons input:hover{
+            scale: 0.95;
+        }
+        #Buttons input:active{
+            scale: 1.05;
+        }
+        #Pause{
+            margin-right: 2rem;
+        }
+        #Reset{
+            margin-left: 2rem;
+        }
+        #Resume{
+            margin-right: 2rem;
+        }
+        .color{
+            cursor: pointer;
+            width: 20%;
+            height: 25vh;
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.78);
+            top: 26vh;
+            left: 34vw;
+            border-radius: 15px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            padding: 20px;
+            gap: 1rem;
+        }
+        #ab{
+            height: 9vh;
+        }
+        .firstcolor{
+            background-color: orange;
+        }
+        .secondcolor{
+            background-color:crimson;
+        }
+        .thirdcolor{
+            background-color: yellowgreen;
+        }
+        .fourthcolor{
+            background-color: rgb(0, 0, 75);
+        }
+        @media(max-width: 600px){
+
+        }
+    </style>
+</head>
+<body>
+    <div class="title">
+        <p>Pomodoro Clock</p>
+    </div>
+    <div class="feature">
+        <div class="options">
+            <div class="rightside">
+                <div class="sectionA">
+                    <a onclick="color()" id="color">COLOR</a>
+                    <select id="Sessions" onchange="change1()">
+                        <option value="2">2 Session</option>
+                        <option value="4">4 Session</option>
+                        <option value="8">8 Session</option>
+                    </select>
+                </div>
+                <div class="sectionB">
+                    <select id="Minutes" onchange="change1()">
+                        <option value="25">25min</option>
+                        <option value="30">30min</option>
+                        <option value="50">50min</option>
+                        <option value="55">55min</option>
+                    </select>
+                    <select id="Breaks" onchange="change1()">
+                        <option value="5">5min</option>
+                        <option value="10">10min</option>
+                        <option value="15">15min</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="down">
+        <div class="clock">
+            <p id="Time"></p>
+        </div>
+    </div>
+    <div id="Buttons">
+        <input id="start" type="submit" value="Start" onclick="start()">
+        <input id="Resume" type="submit" value="Resume" onclick="startAgain()" placeholder="Pause" style="display: none;" >
+        <input id="Pause" type="submit" value="pause" onclick="pause()" placeholder="Pause" style="display: none;" >
+        <input id="Reset" type="reset" value="reset" onclick="reset()" placeholder="Reset" style="display: none;" >
+    </div>
+    <div class="color" id="colorBox" style="display: none;">
+        <div id="ab" class="firstcolor" onclick="orange()" onmouseenter="orange1()"></div>
+        <div id="ab" class="secondcolor" onclick="crimson()" onmouseenter="crimson1()"></div>
+        <div id="ab" class="thirdcolor" onclick="lightgreen()" onmouseenter="lightgreen1()"></div>
+        <div id="ab" class="fourthcolor" onclick="HomeBlue()" onmouseenter="HomeBlue1()"></div>
+    </div>
+
+
+
+    <script>
+        var session = 2
+        var minute = 24
+        var second = 59
+        var Breaks = 5
+        var i=1
+        var id
+        var breakcount =0
+        var min = minute
+        document.getElementById("Time").innerHTML = "25"+" : "+"00"
+        function change1(){
+            session = document.getElementById("Sessions").value
+            minute = document.getElementById("Minutes").value
+            Breaks = document.getElementById("Breaks").value
+            document.getElementById("Time").innerHTML = minute+" : "+"00"
+            minute = minute -1
+            min = minute
+        }
+        function start(){
+            document.getElementById("start").style.display = "none"
+            document.getElementById("Pause").style.display = "inline-block"
+            document.getElementById("Reset").style.display = "inline-block"
+            document.getElementById("Resume").style.display = "none"
+
+            function clock(){
+                document.getElementById("Time").innerHTML = minute + " : "+second
+                if(second == 0){
+                    minute =minute-1
+                    if(minute==-1){
+                        if(i!=session){
+                            if(breakcount % 2==0){
+                                minute = Breaks -1
+                                breakcount++
+                                playmusic2()
+                            }
+                            else{
+                                playmusic()
+                                minute = min
+                                breakcount++
+                                i++
+                            }
+                        }
+                        else{
+                            clearInterval(id)
+                        }
+                    }
+                    second = 59
+                }
+                
+                second = second-1
+            }
+            id = setInterval(clock,1000)
+        }
+        function pause(){
+            id = clearInterval(id)
+            document.getElementById("Pause").style.display = "none"
+            document.getElementById("Resume").style.display = "inline-block"
+        }
+        function startAgain(){
+            start()
+        }
+        function reset(){
+            location.reload()
+        }
+        function color(){
+            document.getElementById("colorBox").style.display ="grid"
+        }
+        function orange(){
+            document.querySelector("body").style.backgroundColor ="orange"
+            document.getElementById("colorBox").style.display ="none"
+        }
+        function crimson(){
+            document.querySelector("body").style.backgroundColor ="crimson"
+            document.getElementById("colorBox").style.display ="none"
+        }
+        function lightgreen(){
+            document.querySelector("body").style.backgroundColor ="yellowgreen"
+            document.getElementById("colorBox").style.display ="none"
+        }
+        function HomeBlue(){
+            document.querySelector("body").style.backgroundColor ="rgb(0, 0, 75)"
+            document.getElementById("colorBox").style.display ="none"
+        }
+        function orange1(){
+            document.querySelector("body").style.backgroundColor ="orange"
+        }
+        function crimson1(){
+            document.querySelector("body").style.backgroundColor ="crimson"
+        }
+        function lightgreen1(){
+            document.querySelector("body").style.backgroundColor ="yellowgreen"
+        }
+        function HomeBlue1(){
+            document.querySelector("body").style.backgroundColor ="rgb(0, 0, 75)"
+        }
+        function playmusic(){
+            let audio = new Audio("run.mp3")
+            audio.play()
+        }
+        function playmusic2(){
+            let audio = new Audio("break.mp3")
+            audio.play()
+        }
+    </script>
+</body>
+</html>
